@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TradeYard — Soil, Rock, Leftover Materials & Machinery Hire</title>
+  <meta name="description" content="TradeYard connects people trading soil, rock, leftover building materials, and hiring machinery. Browse listings and contact listers directly—no on-site payments." />
+  <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)">
+  <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap)" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1320;
+      --panel:#131a2a;
+      --muted:#9aa5bf;
+      --text:#e8ecf8;
+      --brand:#7ee081;
+      --brand-strong:#34d399;
+      --accent:#60a5fa;
+      --danger:#ef4444;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --chip:#1c2539;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1000px 600px at 80% -120px, rgba(96,165,250,.18), transparent 60%),
+        radial-gradient(800px 500px at -10% -150px, rgba(126,224,129,.16), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1180px;margin:0 auto;padding:0 22px}
+    header{
+      position:sticky;top:0;background:rgba(15,19,32,.78);backdrop-filter:saturate(150%) blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.06); z-index:50;
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .logo{
+      width:34px;height:34px;border-radius:8px;background:
+        conic-gradient(from 210deg, var(--brand), var(--accent), var(--brand));
+      box-shadow:0 0 0 3px rgba(255,255,255,.08) inset;
+    }
+    .nav a{color:var(--muted);font-weight:600}
+    .nav a:hover{color:#fff}
+    .nav-links{display:flex;gap:20px}
+    .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:26px}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
+      background:linear-gradient(180deg, var(--brand), var(--brand-strong));
+      color:#062312;font-weight:700;box-shadow:var(--shadow);border:0;cursor:pointer
+    }
+    .btn.ghost{
+      background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.14);box-shadow:none
+    }
+    .badge{
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background:rgba(126,224,129,.14);color:var(--brand);font-weight:700;font-size:12px
+    }
+    .hero{padding:72px 0 36px}
+    h1{font-size:46px;line-height:1.1;margin:0 0 12px}
+    p.lead{font-size:18px;color:var(--muted);margin:0 0 20px}
+    .grid{display:grid;gap:26px}
+    .hero .grid{grid-template-columns:1.05fr .95fr;align-items:center}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+    .panel{padding:22px}
+    .hero-visual{aspect-ratio:16/10;border-radius:var(--radius);overflow:hidden;position:relative}
+    .hero-visual canvas{position:absolute;inset:0;width:100%;height:100%}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .chip{background:var(--chip);border:1px solid rgba(255,255,255,.08);padding:6px 10px;border-radius:999px;color:#c7d2fe;font-weight:600;font-size:12px}
+    .section{padding:44px 0}
+    .section h2{font-size:28px;margin:0 0 12px}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 20px}
+    .select, .input{
+      background:#0f1527;border:1px solid rgba(255,255,255,.14);color:var(--text);
+      padding:10px 12px;border-radius:10px
+    }
+    .listings{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .listing{overflow:hidden;display:flex;flex-direction:column}
+    .listing img{width:100%;height:160px;object-fit:cover;display:block;border-bottom:1px solid rgba(255,255,255,.08)}
+    .listing .panel{flex:1}
+    .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .meta .chip{font-weight:600}
+    .price{font-weight:800;color:#d1fae5}
+    .note{font-size:13px;color:var(--muted)}
+    .cols{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+    .how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:12px}
+    .how .step{padding:16px}
+    .how .num{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;background:rgba(126,224,129,.16);color:var(--brand);font-weight:800;margin-right:8px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    footer{padding:30px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.08);margin-top:36px}
+    .footer-cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:26px}
+    .legal{font-size:12px;color:var(--muted)}
+    /* Responsive */
+    @media (max-width: 1060px){
+      .listings{grid-template-columns:repeat(2,1fr)}
+      .cols, .hero .grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 720px){
+      h1{font-size:34px}
+      .nav-links{display:none}
+      .menu-btn{display:block}
+      .mobile{display:none;flex-direction:column;gap:12px;padding:12px 0}
+      .mobile a{padding:10px 0;border-top:1px solid rgba(255,255,255,.06)}
+      .show{display:flex}
+      .listings{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <a href="#"><span>TradeYard</span></a>
+      </div>
+      <nav class="nav-links">
+        <a href="#listings">Browse</a>
+        <a href="#how">How it Works</a>
+        <a href="#post">Post a Listing</a>
+        <a href="#contact" class="btn ghost">Contact</a>
+      </nav>
+      <button class="menu-btn" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
+    </div>
+    <div id="mobileNav" class="container mobile">
+      <a href="#listings">Browse</a>
+      <a href="#how">How it Works</a>
+      <a href="#post">Post a Listing</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <span class="badge">No on‑site transactions</span>
+          <h1>Soil, rock, leftover materials, and machinery hire—listed in one place.</h1>
+          <p class="lead">TradeYard is a simple marketplace hub: find or post what you need and contact the lister directly. No commissions, no escrow, no payments here.</p>
+          <div class="cta">
+            <a href="#listings" class="btn">Browse Listings</a>
+            <a href="#post" class="btn ghost">Post a Listing</a>
+          </div>
+          <div class="chips">
+            <span class="chip">Topsoil</span>
+            <span class="chip">Clean fill</span>
+            <span class="chip">Crushed rock</span>
+            <span class="chip">Timber offcuts</span>
+            <span class="chip">Scaffold hire</span>
+            <span class="chip">Excavator hire</span>
+          </div>
+          <p class="note" style="margin-top:10px">Important: All arrangements, inspections, payments, and transport are handled off‑platform between parties.</p>
+        </div>
+        <div class="card hero-visual">
+          <canvas id="orbs" aria-hidden="true"></canvas>
+        </div>
+      </div>
+    </section>
+    <section id="listings" class="section">
+      <div class="container">
+        <h2>Browse listings</h2>
+        <div class="filters">
+          <select id="cat" class="select" aria-label="Filter by category">
+            <option value="">All categories</option>
+            <option>Soil</option>
+            <option>Rock</option>
+            <option>Leftover Materials</option>
+            <option>Machinery Hire</option>
+          </select>
+          <select id="loc" class="select" aria-label="Filter by location">
+            <option value="">Anywhere</option>
+            <option>North</option>
+            <option>East</option>
+            <option>South</option>
+            <option>West</option>
+          </select>
+          <input id="q" class="input" type="search" placeholder="Search e.g. topsoil, 20mm, loader…" aria-label="Search listings">
+          <button class="btn" onclick="applyFilters()">Filter</button>
+          <button class="btn ghost" onclick="resetFilters()">Reset</button>
+        </div>
+        <div id="cards" class="listings">
+          <!-- Sample listings; replace with data from your backend -->
+          <article class="card listing" data-cat="Soil" data-loc="North" data-text="topsoil screened clean fill 10m3">
+            <img src="[images.unsplash.com](https://images.unsplash.com/photo-1559622214-5a6b3a3b4a0b?q=80&w=1200&auto=format&fit=crop)" alt="Pile of topsoil">
+            <div class="panel">
+              <h3>Screened topsoil — 10 m³</h3>
+              <div class="meta">
+                <span class="chip">Soil</span>
+                <span class="chip">North</span>
+                <span class="chip price">Free if collected</span>
+              </div>
+              <p class="note">From landscaping job. Access for small tipper. No delivery.</p>
+              <p><a class="btn" href="#contact" onclick="prefillContact('Screened topsoil — 10 m³')">Contact lister</a></p>
+            </div>
+          </article>
+          <article class="card listing" data-cat="Rock" data-loc="East" data-text="20mm crushed rock 4 tonnes">
+            <img src="[images.unsplash.com](https://images.unsplash.com/photo-1508898578281-774ac4893bd0?q=80&w=1200&auto=format&fit=crop)" alt="Crushed rock aggregate">
+            <div class="panel">
+              <h3>Crushed rock 20 mm — 4 t</h3>
+              <div class="meta">
+                <span class="chip">Rock</span>
+                <span class="chip">East</span>
+                <span class="chip price">$25/t</span>
+              </div>
+              <p class="note">Leftover from driveway. Pickup preferred; delivery quote on request.</p>
+              <p><a class="btn" href="#contact" onclick="prefillContact('Crushed rock 20 mm — 4 t')">Contact lister</a></p>
+            </div>
+          </article>
+          <article class="card listing" data-cat="Leftover Materials" data-loc="South" data-text="treated pine offcuts timber pallets">
+            <img src="[images.unsplash.com](https://images.unsplash.com/photo-1523419409543-a5e549c1d1f4?q=80&w=1200&auto=format&fit=crop)" alt="Stack of timber offcuts">
+            <div class="panel">
+              <h3>Treated pine offcuts — mixed lengths</h3>
+              <div class="meta">
+                <span class="chip">Leftover Materials</span>
+                <span class="chip">South</span>
+                <span class="chip price">Free</span>
+              </div>
+              <p class="note">Ideal for garden edging and stakes. Stackable on pallets.</p>
+              <p><a class="btn" href="#contact" onclick="prefillContact('Treated pine offcuts — mixed lengths')">Contact lister</a></p>
+            </div>
+          </article>
+          <article class="card listing" data-cat="Machinery Hire" data-loc="West" data-text="1.7t excavator hire trailer attachments">
+            <img src="[images.unsplash.com](https://images.unsplash.com/photo-1591453089816-0fbbd10b1915?q=80&w=1200&auto=format&fit=crop)" alt="Mini excavator">
+            <div class="panel">
+              <h3>1.7 t excavator hire</h3>
+              <div class="meta">
+                <span class="chip">Machinery Hire</span>
+                <span class="chip">West</span>
+                <span class="chip price">$220/day</span>
+              </div>
+              <p class="note">On trailer. Includes buckets and ripper. Bond and ID required.</p>
+              <p><a class="btn" href="#contact" onclick="prefillContact('1.7 t excavator hire')">Contact lister</a></p>
+            </div>
+          </article>
+          <article class="card listing" data-cat="Soil" data-loc="East" data-text="clay fill surplus site works 30m3">
+            <img src="[images.unsplash.com](https://images.unsplash.com/photo-1616400619175-5f5a8d51c0de?q=80&w=1200&auto=format&fit=crop)" alt="Clay fill">
+            <div class="panel">
+              <h3>Clay fill — approx. 30 m³</h3>
+              <div class="meta">
+                <span class="chip">Soil</span>
+                <span class="chip">East</span>
+                <span class="chip price">Negotiable</span>
+              </div>
+              <p class="note">Access for semi. Loading available weekdays.</p>
+              <p><a class="btn" href="#contact" onclick="prefillContact('Clay fill — approx. 30 m³')">Contact lister</a></p>
+            </div>
+          </article>
+          <article class="card listing" data-cat="Machinery Hire" data-loc="North" data-text="plate compactor hire day rate">
+            <img src="[images.unsplash.com](https://images.unsplash.com/photo-1615634260167-2c3b5c83a1ec?q=80&w=1200&auto=format&fit=crop)" alt="Plate compactor">
+            <div class="panel">
+              <h3>Plate compactor hire</h3>
+              <div class="meta">
+                <span class="chip">Machinery Hire</span>
+                <span class="chip">North</span>
+                <span class="chip price">$45/day</span>
+              </div>
+              <p class="note">Flexible pickup times. ID and deposit apply.</p>
+              <p><a class="btn" href="#contact" onclick="prefillContact('Plate compactor hire')">Contact lister</a></p>
+            </div>
+          </article>
+        </div>
+        <p class="note" style="margin-top:10px">Listings are user-submitted. Verify quality, quantities, and safety on inspection before committing.</p>
+      </div>
+    </section>
+    <section id="how" class="section">
+      <div class="container">
+        <h2>How it works</h2>
+        <div class="how">
+          <div class="card step">
+            <div><span class="num">1</span><strong>Post</strong></div>
+            <p class="note">Describe material or machine, location, availability, and contact details.</p>
+          </div>
+          <div class="card step">
+            <div><span class="num">2</span><strong>Connect</strong></div>
+            <p class="note">Interested parties message or call you directly—no payments on TradeYard.</p>
+          </div>
+          <div class="card step">
+            <div><span class="num">3</span><strong>Arrange</strong></div>
+            <p class="note">Agree on price, pickup/delivery, and terms off‑platform between yourselves.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="post" class="section">
+      <div class="container cols">
+        <div class="card panel">
+          <h2>Post a listing</h2>
+          <form id="postForm" novalidate>
+            <label>
+              <span>Category</span>
+              <select name="category" class="select" required aria-required="true">
+                <option value="">Select a category</option>
+                <option>Soil</option>
+                <option>Rock</option>
+                <option>Leftover Materials</option>
+                <option>Machinery Hire</option>
+              </select>
+            </label>
+            <label>
+              <span>Title</span>
+              <input class="input" type="text" name="title" placeholder="e.g., Screened topsoil — 8 m³" required aria-required="true">
+            </label>
+            <label>
+              <span>Location</span>
+              <input class="input" type="text" name="location" placeholder="Suburb/Area" required aria-required="true">
+            </label>
+            <label>
+              <span>Price or terms</span>
+              <input class="input" type="text" name="price" placeholder="Free, Negotiable, $/unit" required aria-required="true">
+            </label>
+            <label>
+              <span>Description</span>
+              <textarea class="input" name="desc" rows="4" placeholder="Condition, quantities, pickup/delivery details…" required aria-required="true"></textarea>
+            </label>
+            <label>
+              <span>Contact (email or phone)</span>
+              <input class="input" type="text" name="contact" placeholder="you@example.com or 0400 000 000" required aria-required="true">
+            </label>
+            <button class="btn" type="submit">Preview & add</button>
+            <p id="postMsg" class="note" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="card panel">
+          <h2>Posting tips</h2>
+          <ul class="note">
+            <li>Be specific: size, grade (e.g., 20 mm), volumes (m³ or tonnes), and access.</li>
+            <li>For machinery, include attachments, towability, insurance/bond requirements, and rates.</li>
+            <li>Add clear photos and state pickup/delivery options and time windows.</li>
+            <li>No payments on TradeYard—share your preferred contact method to arrange off‑platform.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="section">
+      <div class="container cols">
+        <div class="card panel">
+          <h2>Contact</h2>
+          <form id="contactForm" novalidate>
+            <label>
+              <span>Name</span>
+              <input class="input" type="text" name="name" placeholder="Your name" required aria-required="true">
+            </label>
+            <label>
+              <span>Email</span>
+              <input class="input" type="email" name="email" placeholder="you@example.com" required aria-required="true">
+            </label>
+            <label>
+              <span>Message</span>
+              <textarea class="input" name="message" rows="4" placeholder="What are you enquiring about?" required aria-required="true"></textarea>
+            </label>
+            <button class="btn" type="submit">Send</button>
+            <p id="formMsg" class="note" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="card panel">
+          <h2>About TradeYard</h2>
+          <p>TradeYard helps builders, landscapers, and DIYers reuse materials and find hire gear fast. We’re a noticeboard, not a broker—no on‑site payments and no commissions.</p>
+          <p class="note">Safety first: check compliance for transport, tipping, contamination, and machine operation licensing in your area.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container footer-cols">
+      <div>
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <strong>TradeYard</strong>
+        </div>
+        <p class="legal">© <span id="year"></span> TradeYard. All rights reserved.</p>
+        <p class="legal">TradeYard is a listings platform only. We do not handle payments, hold funds, or mediate disputes.</p>
+      </div>
+      <div>
+        <strong>Explore</strong>
+        <ul class="note" style="list-style:none;padding:0;margin:8px 0 0">
+          <li><a href="#listings">Browse</a></li>
+          <li><a href="#post">Post a listing</a></li>
+          <li><a href="#how">How it works</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Legal</strong>
+        <ul class="note" style="list-style:none;padding:0;margin:8px 0 0">
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Safety</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Mobile menu toggle
+    function toggleMenu(){
+      const el = document.getElementById('mobileNav');
+      el.classList.toggle('show');
+    }
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Simple filter/search
+    function applyFilters(){
+      const cat = document.getElementById('cat').value.toLowerCase();
+      const loc = document.getElementById('loc').value.toLowerCase();
+      const q = document.getElementById('q').value.toLowerCase().trim();
+      const cards = Array.from(document.querySelectorAll('#cards .listing'));
+      cards.forEach(c => {
+        const okCat = !cat || c.dataset.cat.toLowerCase() === cat;
+        const okLoc = !loc || c.dataset.loc.toLowerCase() === loc;
+        const okQ = !q || c.dataset.text.toLowerCase().includes(q);
+        c.style.display = (okCat && okLoc && okQ) ? '' : 'none';
+      });
+    }
+    function resetFilters(){
+      document.getElementById('cat').value = '';
+      document.getElementById('loc').value = '';
+      document.getElementById('q').value = '';
+      applyFilters();
+    }
+    // Minimal "post a listing" handler (front-end only demo)
+    document.getElementById('postForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const required = ['category','title','location','price','desc','contact'];
+      for(const k of required){ if(!(data.get(k)||'').toString().trim()){ return msg('postMsg','Please complete all fields.', true); } }
+      // Create a preview card (would be saved server-side in a real app)
+      const card = document.createElement('article');
+      card.className = 'card listing';
+      card.dataset.cat = data.get('category');
+      card.dataset.loc = 'Unknown';
+      card.dataset.text = (data.get('title') + ' ' + data.get('desc')).toLowerCase();
+      card.innerHTML = `
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop)" alt="Listing photo placeholder">
+        <div class="panel">
+          <h3>${escapeHtml(data.get('title'))}</h3>
+          <div class="meta">
+            <span class="chip">${escapeHtml(data.get('category'))}</span>
+            <span class="chip">${escapeHtml(data.get('location'))}</span>
+            <span class="chip price">${escapeHtml(data.get('price'))}</span>
+          </div>
+          <p class="note">${escapeHtml(data.get('desc'))}</p>
+          <p class="note">Contact: ${escapeHtml(data.get('contact'))}</p>
+          <p><a class="btn" href="#contact" onclick="prefillContact('${escapeAttr(data.get('title'))}')">Contact lister</a></p>
+        </div>
+      `;
+      document.getElementById('cards').prepend(card);
+      msg('postMsg','Listing added for preview (not saved). Connect a backend to persist.', false);
+      e.target.reset();
+    });
+    function msg(id, text, isErr){
+      const el = document.getElementById(id);
+      el.textContent = text;
+      el.style.color = isErr ? '#fca5a5' : 'var(--brand)';
+    }
+    function escapeHtml(s){ return (s||'').toString()
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+    function escapeAttr(s){ return (s||'').toString().replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+    // Contact form validation (front-end only)
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const name = (data.get('name')||'').trim();
+      const email = (data.get('email')||'').trim();
+      const message = (data.get('message')||'').trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if(!name || !emailOk || !message){
+        msg('formMsg','Please fill in all fields with a valid email.', true);
+        return;
+      }
+      msg('formMsg','Thanks! Your message has been sent.', false);
+      e.target.reset();
+    });
+    // Prefill contact message from a listing
+    function prefillContact(title){
+      const form = document.getElementById('contactForm');
+      const textarea = form.querySelector('textarea[name="message"]');
+      textarea.value = `Enquiry about: ${title}\n\nHi, I’m interested. Is it still available?`;
+    }
+    // Animated orbs in hero canvas
+    const canvas = document.getElementById('orbs');
+    const ctx = canvas.getContext('2d');
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let W, H, orbs;
+    function resize(){
+      const r = canvas.getBoundingClientRect();
+      W = Math.max(1, Math.floor(r.width * DPR));
+      H = Math.max(1, Math.floor(r.height * DPR));
+      canvas.width = W; canvas.height = H;
+      orbs = Array.from({length: 18}, (_, i) => ({
+        x: Math.random()*W, y: Math.random()*H,
+        r: 20 + Math.random()*50,
+        vx: (Math.random()-.5)*0.4*DPR,
+        vy: (Math.random()-.5)*0.4*DPR,
+        hue: (i*20 + Math.random()*60) % 360,
+        alpha: .08 + Math.random()*.12
+      }));
+    }
+    function tick(){
+      ctx.clearRect(0,0,W,H);
+      for(const o of orbs){
+        o.x+=o.vx; o.y+=o.vy;
+        if(o.x< -o.r) o.x=W+o.r; if(o.x>W+o.r) o.x=-o.r;
+        if(o.y< -o.r) o.y=H+o.r; if(o.y>H+o.r) o.y=-o.r;
+        const grad = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+        grad.addColorStop(0, `hsla(${o.hue}, 90%, 70%, ${o.alpha})`);
+        grad.addColorStop(1, `hsla(${o.hue}, 90%, 50%, 0)`);
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI*2); ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    window.addEventListener('resize', resize);
+    resize(); tick();
+  </script>
+</body>
+</html>
